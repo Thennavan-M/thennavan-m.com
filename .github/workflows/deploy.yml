@@ -1,4 +1,5 @@
 # Builds the site and publishes it to GitHub Pages on every push to main.
+# The website's files are in the thennavan-m-site folder.
 # You can also run it by hand from the Actions tab ("Run workflow").
 name: Deploy to GitHub Pages
 
@@ -19,6 +20,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: thennavan-m-site
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -30,7 +34,7 @@ jobs:
         run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: thennavan-m-site/dist
 
   deploy:
     needs: build
