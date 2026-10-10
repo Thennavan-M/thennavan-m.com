@@ -62,8 +62,8 @@ export const specialisations = ['Steel Structures', 'Additive Manufacturing', 'S
 
 export const openTo = [
   'Faculty positions in structural and earthquake engineering',
-  'Research collaboration on vibration-control devices',
-  'Consultancy in seismic assessment and retrofit',
+  'Research collaboration on vibration-control devices, steel structures and additive manufacturing',
+  'Consultancy in seismic assessment and retrofit, steel structures and additive manufacturing',
 ];
 
 // ---------------------------------------------------------------------------
@@ -441,7 +441,7 @@ export const courses = [
 ];
 
 // ---------------------------------------------------------------------------
-// News (newest first). Keep each item to one sentence.
+// News on the About page (newest first). Keep each item to one sentence.
 // ---------------------------------------------------------------------------
 
 export const news = [
@@ -471,12 +471,6 @@ export const positions = [
     title: 'Postdoctoral Researcher',
     org: 'Department of Structures for Engineering and Architecture, University of Naples Federico II, Italy',
     note: 'Mentors: Prof. Nicolò Vaiana and Prof. Daniele Losanno. PRIN 2022 PNRR project on eco-friendly seismic protection of underground structures.',
-  },
-  {
-    when: 'Aug 2021 – Jun 2024',
-    title: 'Research Scholar',
-    org: 'Department of Ocean Engineering, IIT Madras, India',
-    note: '',
   },
   { when: 'Sep 2020 – May 2021', title: 'Project Engineer', org: 'Studio Naqshabandi, Auroville, India', note: '' },
   { when: 'May 2019 – May 2020', title: 'Registered Engineer', org: 'Puducherry Planning Authority, India', note: '' },
@@ -517,7 +511,6 @@ export const aboutEducation = [
 ];
 
 export const honours = [
-  { when: '2026', text: 'Elected Member, American Society of Civil Engineers (M.ASCE)' },
   { when: '2025', text: 'Seal of Excellence, European Commission, Marie Skłodowska-Curie Actions Postdoctoral Fellowships' },
   { when: '2025', text: 'Indian Patent No. 574714 granted' },
 ];
@@ -529,17 +522,10 @@ export const training = [
   },
 ];
 
-export const collaborators = [
-  { name: 'Prof. Srinivasan Chandrasekaran', org: 'IIT Madras' },
-  { name: 'Prof. Murugaiyan Amirthalingam', org: 'IIT Madras' },
-  { name: 'Prof. Nicolò Vaiana', org: 'University of Naples Federico II' },
-  { name: 'Prof. Daniele Losanno', org: 'University of Naples Federico II' },
-  { name: 'Prof. P. C. Ashwin Kumar', org: 'IIT Roorkee' },
-];
-
 export const memberships = [
   'American Society of Civil Engineers (M.ASCE)',
   'Earthquake Engineering Research Institute (EERI)',
+  'Indian Society of Earthquake Technology (ISET)',
   'Anti-Seismic Systems International Society (ASSISi)',
   'Institution of Engineers (India)',
   'Institution of Engineering and Technology (IET)',

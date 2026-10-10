@@ -62,12 +62,13 @@ export function headerHtml(path: string, link: Link = same) {
 </div></header>`;
 }
 
-export function footerHtml(link: Link = same) {
+// The profile links live on the About page and the Publications page, and
+// Contact is in the menu, so the footer carries only the name and affiliation.
+export function footerHtml(_link: Link = same) {
   const now = new Date();
   const updated = now.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
   return `<footer class="site-footer"><div class="wrap footer-inner">
 <div><p class="footer-name">${esc(fullName)}</p><p>${esc(person.department)}, ${esc(person.institution)}</p></div>
-<ul class="footer-links">${profiles.map((p) => `<li>${ext(p.href, esc(p.label))}</li>`).join('')}<li><a href="${esc(link('/contact/'))}">Contact</a></li></ul>
 <p class="footer-small"><span>© ${now.getFullYear()} ${esc(fullName)}. Last updated ${esc(updated)}.</span>${person.motto ? `<span class="motto" lang="${esc(person.motto.lang)}">${esc(person.motto.text)}</span>` : ''}</p>
 </div></footer>`;
 }
@@ -186,7 +187,7 @@ ${person.cv ? `<a class="btn btn-outline btn-block" href="${esc(link(person.cv))
 </div>
 <div class="profile-main">
 <h2>Biography</h2>
-<div class="prose">${person.bio.map((b) => `<p>${esc(b)}</p>`).join('')}</div>
+<div class="prose bio">${person.bio.map((b) => `<p>${esc(b)}</p>`).join('')}</div>
 </div>
 <div class="facts">
 <div class="facts-interests"><h3>Research interests</h3><ul class="interests">${interests}</ul></div>
@@ -319,15 +320,14 @@ function cv(link: Link) {
   const simple = (items: Array<{ when: string; text: string }>) =>
     items.map((i) => `<li><span class="date">${esc(i.when)}</span><div><p>${esc(i.text)}</p></div></li>`).join('');
   const download = person.cv ? `<div class="actions"><a class="btn" href="${esc(link(person.cv))}">${ICON.download}Download full CV (PDF)</a></div>` : '';
-  return `${pageHead('Curriculum vitae', 'Structural and earthquake engineer. PhD from IIT Madras, postdoctoral research at the University of Naples Federico II and IIT Roorkee, and earlier practice in structural design and planning approval.', download)}
+  // Each fact appears once: supervisors and mentors are named with the degree
+  // or position they belong to, and ASCE membership is listed under Memberships.
+  return `${pageHead('Curriculum vitae', '', download)}
 <section class="wrap block" aria-labelledby="positions"><h2 class="section-title" id="positions">Positions</h2><ul class="rows wide">${rows(S.positions)}</ul></section>
 <section class="wrap block" aria-labelledby="education"><h2 class="section-title" id="education">Education</h2><ul class="rows wide">${edu}</ul></section>
 <section class="wrap block" aria-labelledby="honours"><h2 class="section-title" id="honours">Honours</h2><ul class="rows wide">${simple(S.honours)}</ul></section>
 <section class="wrap block" aria-labelledby="training"><h2 class="section-title" id="training">Advanced training</h2><ul class="rows wide">${simple(S.training)}</ul></section>
-<section class="wrap block two-col" aria-label="Memberships and collaborators">
-<div><h2 class="section-title">Memberships</h2><ul class="bullets">${S.memberships.map((m) => `<li>${esc(m)}</li>`).join('')}</ul></div>
-<div><h2 class="section-title">Collaborators</h2><ul class="bullets">${S.collaborators.map((c) => `<li>${esc(c.name)}<span>${esc(c.org)}</span></li>`).join('')}</ul></div>
-</section>`;
+<section class="wrap block" aria-labelledby="memberships"><h2 class="section-title" id="memberships">Memberships</h2><ul class="bullets bullets-2">${S.memberships.map((m) => `<li>${esc(m)}</li>`).join('')}</ul></section>`;
 }
 
 function contact() {
@@ -346,8 +346,6 @@ ${person.showPhone && person.phone ? `<div><dt>${ICON.phone}Phone</dt><dd><a hre
 <div>
 <h2 class="section-title">I welcome enquiries about</h2>
 <ul class="bullets">${S.openTo.map((o) => `<li>${esc(o)}</li>`).join('')}</ul>
-<h2 class="section-title section-title-gap">Profiles</h2>
-<ul class="bullets">${profiles.map((p) => `<li>${ext(p.href, esc(p.label))}</li>`).join('')}</ul>
 </div>
 </section>`;
 }
@@ -384,7 +382,7 @@ export const pages = {
     description: 'Courses supported at the University of Naples Federico II and IIT Madras.',
     body: (_link: Link = same) => teaching(),
   },
-  cv: { path: '/cv/', title: 'CV', description: 'Positions, education, honours, training, memberships and collaborators.', body: (link: Link = same) => cv(link) },
+  cv: { path: '/cv/', title: 'CV', description: 'Positions, education, honours, training and memberships.', body: (link: Link = same) => cv(link) },
   contact: {
     path: '/contact/',
     title: 'Contact',
