@@ -71,7 +71,7 @@ export const specialisations = ['Steel Structures', 'Additive Manufacturing', 'S
 export const openTo = [
   'Faculty positions in structural and earthquake engineering',
   'Research collaboration on vibration-control devices, steel structures and additive manufacturing',
-  'Consultancy in seismic assessment and retrofit, steel structures and additive manufacturing',
+  'Consultancy in seismic assessment and retrofit, steel (including PEB), concrete and composite structures',
 ];
 
 // ---------------------------------------------------------------------------
