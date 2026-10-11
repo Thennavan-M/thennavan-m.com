@@ -290,7 +290,7 @@ ${p.facts.map((f) => `<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div
 <section class="wrap block" aria-labelledby="earlier"><h2 class="section-title" id="earlier">Earlier projects</h2><ul class="entries">${past}</ul></section>`;
 }
 
-function publications() {
+function publications(link: Link) {
   const keyed = (list: Article[], prefix: string) =>
     list
       .map((a, i) => {
@@ -305,7 +305,7 @@ function publications() {
     .join('');
   const patents = S.patents
     .map(
-      (p, i) => `<li><span class="key">P${S.patents.length - i}</span><div>${label(p.status)}<span class="pub-title">${esc(p.title)}</span><span class="pub-venue">${esc(p.note ? `${p.number}. ${p.note}` : p.number)}</span>${p.link ? `<span class="pub-doi">${ext(p.link, 'View the grant certificate')}</span>` : ''}</div></li>`,
+      (p, i) => `<li><span class="key">P${S.patents.length - i}</span><div>${label(p.status)}<span class="pub-title">${esc(p.title)}</span><span class="pub-venue">${esc(p.note ? `${p.number}. ${p.note}` : p.number)}</span>${p.link ? `<span class="pub-doi"><a href="${esc(p.link.startsWith('/') ? link(p.link) : p.link)}" target="_blank" rel="noopener">View the grant certificate (PDF)</a></span>` : ''}</div></li>`,
     )
     .join('');
   const links = `<ul class="link-row">${profiles.map((p) => `<li>${ext(p.href, `${ICON.out}${esc(p.label)}`, 'btn btn-outline btn-sm')}</li>`).join('')}</ul>`;
@@ -392,7 +392,7 @@ export const pages = {
     path: '/publications/',
     title: 'Publications',
     description: 'Journal articles, conference papers, manuscripts and Indian patents on coped steel beams, functionally graded materials and seismic dampers.',
-    body: (_link: Link = same) => publications(),
+    body: (link: Link = same) => publications(link),
   },
   teaching: {
     path: '/teaching/',

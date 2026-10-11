@@ -382,7 +382,8 @@ export const patents = [
     number: 'Indian Patent No. 574714',
     note: 'Application 202341054963. Filed 16 Aug 2023, granted 27 Nov 2025.',
     year: 2025,
-    link: 'https://drive.google.com/file/d/1373IiPrXzY7bo9-hhYwI08gg_jau0dgW/view',
+    // The grant certificate, kept on this website in public/documents/.
+    link: '/documents/Patent-574714-certificate.pdf',
   },
   {
     status: 'Filed',
