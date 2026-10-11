@@ -81,7 +81,7 @@ export function footerHtml(_link: Link = same) {
     ? `<span class="foot-right motto" lang="${esc(person.motto.lang)}">${esc(person.motto.text)}</span>`
     : '<span class="foot-right"></span>';
   return `<footer class="site-footer"><div class="wrap footer-inner">
-<div><p class="footer-name">${esc(fullName)}</p><p>${esc(person.department)}, ${esc(person.institution)}</p></div>
+<div><p class="footer-name">${esc(fullName)}</p><p>${esc(person.department)}, ${esc(person.institution)}${person.place ? `, ${esc(person.place)}` : ''}</p></div>
 <div class="footer-small"><span class="foot-left">© ${parts.year} ${esc(fullName)}.</span><span class="foot-mid">Last updated ${updated}${views}</span>${motto}</div>
 </div></footer>`;
 }

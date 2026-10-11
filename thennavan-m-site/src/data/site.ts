@@ -14,6 +14,8 @@ export const person = {
   department: 'Department of Earthquake Engineering',
   institution: 'Indian Institute of Technology Roorkee',
   institutionShort: 'IIT Roorkee',
+  // Added after the institute name in the footer.
+  place: 'Uttarakhand, India',
 
   // Used in search results and when the site is shared.
   summary:
