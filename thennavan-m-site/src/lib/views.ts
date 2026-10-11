@@ -65,8 +65,14 @@ export function headerHtml(path: string, link: Link = same) {
 // The profile links live on the About page and the Publications page, and
 // Contact is in the menu, so the footer carries only the name and affiliation.
 export function footerHtml(_link: Link = same) {
-  const now = new Date();
-  const updated = now.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+  // "Last updated" is the day the site was last published, in Indian time,
+  // written as DD.MM.YYYY. It changes by itself with every upload.
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'Asia/Kolkata' })
+      .formatToParts(new Date())
+      .map((p) => [p.type, p.value]),
+  );
+  const updated = `<time datetime="${parts.year}-${parts.month}-${parts.day}">${parts.day}.${parts.month}.${parts.year}</time>`;
   // The page-view count is filled in by uiScript; it stays hidden until GoatCounter answers.
   const views = S.goatcounter
     ? `<span class="views" data-views="https://${esc(S.goatcounter)}.goatcounter.com/counter/TOTAL.json" hidden><span class="sep" aria-hidden="true">·</span>Page views: <span class="views-n"></span></span>`
@@ -76,7 +82,7 @@ export function footerHtml(_link: Link = same) {
     : '<span class="foot-right"></span>';
   return `<footer class="site-footer"><div class="wrap footer-inner">
 <div><p class="footer-name">${esc(fullName)}</p><p>${esc(person.department)}, ${esc(person.institution)}</p></div>
-<div class="footer-small"><span class="foot-left">© ${now.getFullYear()} ${esc(fullName)}.</span><span class="foot-mid">Last updated ${esc(updated)}${views}</span>${motto}</div>
+<div class="footer-small"><span class="foot-left">© ${parts.year} ${esc(fullName)}.</span><span class="foot-mid">Last updated ${updated}${views}</span>${motto}</div>
 </div></footer>`;
 }
 
