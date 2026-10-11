@@ -67,16 +67,24 @@ export function headerHtml(path: string, link: Link = same) {
 export function footerHtml(_link: Link = same) {
   const now = new Date();
   const updated = now.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+  // The page-view count is filled in by uiScript; it stays hidden until GoatCounter answers.
+  const views = S.goatcounter
+    ? `<span class="views" data-views="https://${esc(S.goatcounter)}.goatcounter.com/counter/TOTAL.json" hidden><span class="sep" aria-hidden="true">·</span>Page views: <span class="views-n"></span></span>`
+    : '';
+  const motto = person.motto
+    ? `<span class="foot-right motto" lang="${esc(person.motto.lang)}">${esc(person.motto.text)}</span>`
+    : '<span class="foot-right"></span>';
   return `<footer class="site-footer"><div class="wrap footer-inner">
 <div><p class="footer-name">${esc(fullName)}</p><p>${esc(person.department)}, ${esc(person.institution)}</p></div>
-<p class="footer-small"><span>© ${now.getFullYear()} ${esc(fullName)}. Last updated ${esc(updated)}.</span>${person.motto ? `<span class="motto" lang="${esc(person.motto.lang)}">${esc(person.motto.text)}</span>` : ''}</p>
+<div class="footer-small"><span class="foot-left">© ${now.getFullYear()} ${esc(fullName)}.</span><span class="foot-mid">Last updated ${esc(updated)}${views}</span>${motto}</div>
 </div></footer>`;
 }
 
-// Copy buttons and the figure viewer (the only scripts on the site).
+// Copy buttons, the one-line specialisations, the figure viewer and the page-view count.
 export const uiScript = `document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){var t=b.getAttribute('data-copy');var label=b.textContent;var done=function(){b.textContent='Copied';setTimeout(function(){b.textContent=label;},1600);};var el=document.getElementById(b.getAttribute('data-target')||'');var sel=function(){if(!el)return;var s=window.getSelection();var r=document.createRange();r.selectNodeContents(el);s.removeAllRanges();s.addRange(r);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,sel);}else{sel();}});});
 (function(){var ul=document.querySelector('.profile-fields');if(!ul)return;function fit(){ul.style.fontSize='';ul.classList.remove('wrap');var card=ul.parentElement;var twoCol=getComputedStyle(card.parentElement).gridTemplateColumns.trim().split(' ').filter(Boolean).length>1;var side=twoCol?Math.max(0,Math.min(40,card.getBoundingClientRect().left-12)):0;var allowed=card.clientWidth+2*side;var size=parseFloat(getComputedStyle(ul).fontSize);var n=0;while(ul.scrollWidth>allowed&&size-0.5>=10.5&&n<24){size-=0.5;ul.style.fontSize=size+'px';n++;}if(ul.scrollWidth>allowed){ul.style.fontSize='';ul.classList.add('wrap');}}fit();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);window.addEventListener('resize',fit);})();
-(function(){var lb=document.getElementById('lightbox');if(!lb||typeof lb.showModal!=='function')return;var img=lb.querySelector('img');var cap=lb.querySelector('.lb-caption');document.querySelectorAll('.fig-link').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();img.src=a.getAttribute('href');var thumb=a.querySelector('img');img.alt=thumb?thumb.alt:'';cap.textContent=a.getAttribute('data-caption')||'';lb.showModal();});});lb.addEventListener('click',function(e){if(e.target===lb)lb.close();});})();`;
+(function(){var lb=document.getElementById('lightbox');if(!lb||typeof lb.showModal!=='function')return;var img=lb.querySelector('img');var cap=lb.querySelector('.lb-caption');document.querySelectorAll('.fig-link').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();img.src=a.getAttribute('href');var thumb=a.querySelector('img');img.alt=thumb?thumb.alt:'';cap.textContent=a.getAttribute('data-caption')||'';lb.showModal();});});lb.addEventListener('click',function(e){if(e.target===lb)lb.close();});})();
+(function(){var v=document.querySelector('[data-views]');if(!v||!window.fetch)return;fetch(v.getAttribute('data-views')).then(function(r){return r.ok?r.json():null;}).then(function(d){if(d&&d.count){v.querySelector('.views-n').textContent=d.count;v.hidden=false;}}).catch(function(){});})();`;
 
 // ---------------------------------------------------------------- pieces
 
@@ -228,7 +236,11 @@ ${figs ? `<div class="figs${x.figures.length > 1 ? ' figs-multi' : ''}">${figs}<
 </article>`;
     })
     .join('');
-  return `${pageHead('Research', esc(S.researchIntro))}
+  const q = S.researchQuote;
+  const quote = q?.text
+    ? `<figure class="quote"><blockquote><p>“${esc(q.text)}”</p></blockquote>${q.by ? `<figcaption>— ${esc(q.by)}</figcaption>` : ''}</figure>`
+    : '';
+  return `${pageHead('Research', esc(S.researchIntro), quote)}
 <section class="wrap block" aria-labelledby="areas-h"><h2 class="section-title" id="areas-h">Research areas</h2><ul class="areas">${areas}</ul></section>
 <section class="wrap block" aria-labelledby="work-h"><h2 class="section-title" id="work-h">Research and experimental work</h2>${work}</section>
 <section class="wrap block two-col" aria-label="Methods, tools and design codes">

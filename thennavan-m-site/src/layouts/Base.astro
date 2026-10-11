@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { person, profiles } from '../data/site';
+import { person, profiles, goatcounter } from '../data/site';
 import { headerHtml, footerHtml, fullName, uiScript } from '../lib/views';
 
 interface Props {
@@ -74,5 +74,10 @@ const jsonLd = {
     </main>
     <Fragment set:html={footerHtml()} />
     <script is:inline set:html={uiScript} />
+    {
+      goatcounter && (
+        <script is:inline data-goatcounter={`https://${goatcounter}.goatcounter.com/count`} async src="https://gc.zgo.at/count.js"></script>
+      )
+    }
   </body>
 </html>

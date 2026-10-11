@@ -57,6 +57,12 @@ export const profiles = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/thennavan17' },
 ];
 
+// Page-view counter in the footer, from GoatCounter (free, no cookies).
+// Sign up at goatcounter.com with this account name, then turn on
+// "Allow adding visitor counts on your website" in its settings.
+// Set to '' to remove the counter.
+export const goatcounter = 'thennavan-m';
+
 // Shown in one gold line under your name and department on the About page.
 export const specialisations = ['Steel Structures', 'Additive Manufacturing', 'Seismic Protection'];
 
@@ -69,6 +75,13 @@ export const openTo = [
 // ---------------------------------------------------------------------------
 // Research
 // ---------------------------------------------------------------------------
+
+// Shown under the introduction at the top of the Research page.
+// Set `by` to '' to show the quote without a name.
+export const researchQuote = {
+  text: 'I will sow the seed and grow it into a plant. Together, we will make a forest.',
+  by: 'Thennavan',
+};
 
 export const researchIntro =
   'I work on seismic protection and vibration control, from passive devices that dissipate earthquake energy to steel sections that resist buckling and impact. Material behaviour comes from the laboratory, and a numerical model is only as useful as the experiment it can reproduce.';
