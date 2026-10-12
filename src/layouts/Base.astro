@@ -1,0 +1,83 @@
+---
+import '../styles/global.css';
+import { person, profiles, goatcounter } from '../data/site';
+import { headerHtml, footerHtml, fullName, uiScript } from '../lib/views';
+
+interface Props {
+  title?: string;
+  description?: string;
+  path: string;
+}
+
+const { title, description, path } = Astro.props;
+
+const pageTitle = title ? `${title} | ${fullName}` : `${fullName} | ${person.role}, ${person.institutionShort}`;
+const pageDescription = description ?? person.summary;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL('/og.png', Astro.site).href;
+
+// Structured data so search engines link this site to your scholarly profiles.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: person.name,
+  honorificPrefix: person.honorific,
+  jobTitle: person.role,
+  url: Astro.site?.href,
+  email: `mailto:${person.email}`,
+  image: person.photo ? new URL(person.photo, Astro.site).href : undefined,
+  affiliation: { '@type': 'CollegeOrUniversity', name: person.institution },
+  alumniOf: [{ '@type': 'CollegeOrUniversity', name: 'Indian Institute of Technology Madras' }],
+  knowsAbout: [
+    'Earthquake engineering',
+    'Structural vibration control',
+    'Passive dampers',
+    'Steel structures',
+    'Functionally graded materials',
+  ],
+  sameAs: profiles.map((p) => p.href),
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#14284b" />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400..700;1,400..600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..600&display=swap"
+    />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <Fragment set:html={headerHtml(path)} />
+    <main id="main">
+      <slot />
+    </main>
+    <Fragment set:html={footerHtml()} />
+    <script is:inline set:html={uiScript} />
+    {
+      goatcounter && (
+        <script is:inline data-goatcounter={`https://${goatcounter}.goatcounter.com/count`} async src="https://gc.zgo.at/count.js"></script>
+      )
+    }
+  </body>
+</html>

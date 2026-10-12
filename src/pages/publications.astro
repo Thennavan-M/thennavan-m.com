@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+import { pages } from '../lib/views';
+
+const page = pages.publications;
+---
+
+<Base title={page.title || undefined} description={page.description} path={page.path}>
+  <Fragment set:html={page.body()} />
+</Base>
