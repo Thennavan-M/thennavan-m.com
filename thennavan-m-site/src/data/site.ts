@@ -67,7 +67,7 @@ export const profiles = [
 export const goatcounter = 'thennavan-m';
 
 // Shown in one gold line under your name and department on the About page.
-export const specialisations = ['Steel Structures', 'Additive Manufacturing', 'Seismic Protection'];
+export const specialisations = ['Steel Structures', 'Metal Additive Manufacturing', 'Seismic Protection'];
 
 export const openTo = [
   'Faculty positions in structural and earthquake engineering',
@@ -257,6 +257,36 @@ export const currentProjects = [
     role: 'Lead researcher',
     focus: 'Local buckling, confinement, axial capacity',
     status: 'Ongoing',
+  },
+  {
+    title: 'Visco-elastomer bearings for vibration control of steel bridges',
+    tagline: 'Bearings that add damping to steel bridges',
+    where: 'Independent work',
+    since: '2026',
+    text: 'Visco-elastomer bearings that dissipate energy at the supports of steel bridges and reduce their vibration. The work is under way, and I welcome collaborators.',
+    role: 'Lead researcher',
+    focus: 'Vibration control, bearings, steel bridges',
+    status: 'Ongoing · open to collaboration',
+  },
+  {
+    title: 'Coped channel beam-column connections',
+    tagline: 'Behaviour under static and cyclic loads',
+    where: 'Independent work',
+    since: '2026',
+    text: 'Beam-column connections with coped channel beams, studied under static and cyclic loading. The work extends my PhD research on coped beams to channel sections and their connections.',
+    role: 'Lead researcher',
+    focus: 'Connections, coped beams, cyclic behaviour',
+    status: 'Ongoing',
+  },
+  {
+    title: 'TRIADD: Tri-layer Functionally Graded Steel Tubes Printed by CMT-WAAM for Corrosion, Fatigue and Wear, with Recycled C&D and E-waste Concrete Infill',
+    tagline: 'Three printed layers, each with its own job',
+    where: 'Independent work',
+    since: '2026',
+    text: 'Functionally graded steel tubes printed by cold metal transfer wire arc additive manufacturing (CMT-WAAM): a 316L stainless steel outer layer for corrosion resistance, a 690 MPa steel middle layer for strength and fatigue, and a Stellite 21 inner layer for wear. The tubes can be used hollow or filled with concrete made from construction and demolition (C&D) waste and e-waste plastic. The project has been initiated, and I am looking for funding and collaborators.',
+    role: 'Lead researcher',
+    focus: 'Graded steel tubes, CMT-WAAM, recycled infill',
+    status: 'Seeking funding and collaborators',
   },
   {
     title: 'Hybrid steel-wire hysteretic damper',
@@ -462,6 +492,7 @@ export const courses = [
 // ---------------------------------------------------------------------------
 
 export const news = [
+  { date: 'Oct 2026', text: 'Became a member of the Anti-Seismic Systems International Society (ASSISi).' },
   { date: 'Sep 2026', text: 'Joined the Department of Earthquake Engineering, IIT Roorkee, as a Postdoctoral Fellow.' },
   { date: 'Aug 2026', text: 'Elected a Member of the American Society of Civil Engineers (M.ASCE).' },
   { date: 'Dec 2025', text: 'Filed Indian patent application 202541130528 for a double-acting spring and wire-rope damper.' },

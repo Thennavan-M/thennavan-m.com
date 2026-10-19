@@ -687,7 +687,7 @@ main > .block:last-child {
   color: var(--gold-text);
   font-size: 0.8rem;
   font-weight: 700;
-  white-space: nowrap;
+  max-width: 100%;
 }
 
 /* news */

@@ -285,7 +285,7 @@ ${p.facts.map((f) => `<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div
 </dl></div></li>`,
     )
     .join('');
-  return `${pageHead('Projects', 'Current work at IIT Roorkee and on my own damper designs, and the projects behind my postdoctoral and PhD research.')}
+  return `${pageHead('Projects', 'Current work at IIT Roorkee and in my own research, and the projects behind my postdoctoral and PhD research.')}
 <section class="wrap block" aria-labelledby="current"><h2 class="section-title" id="current">Current</h2><ul class="entries">${current}</ul></section>
 <section class="wrap block" aria-labelledby="earlier"><h2 class="section-title" id="earlier">Earlier projects</h2><ul class="entries">${past}</ul></section>`;
 }
